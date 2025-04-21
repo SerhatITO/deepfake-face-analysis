@@ -1,0 +1,12 @@
+# Veri klasörlerini dışla
+data/
+extracted_frames/
+faces/
+
+# Geçici / sistem dosyaları
+*.tar.gz
+*.mp4
+*.zip
+*.DS_Store
+*.pyc
+__pycache__/
