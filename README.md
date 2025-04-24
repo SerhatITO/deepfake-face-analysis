@@ -1,16 +1,46 @@
 # Deepfake Face Analysis
 
-Bu proje, videolardaki yüzleri karelere ayırarak (frame extraction) ve yüzleri kırparak (face crop) deepfake tespiti için ön işleme yapılmasını sağlar.
+Bu proje, deepfake tespiti için videolardan yüz çıkarımı, kırpma ve sınıflandırma süreçlerini içerir. Projenin amacı, sahte ve gerçek videoları ayrıştırabilen bir model geliştirmektir.
 
-## 🔍 Proje İçeriği
+---
 
-- `scripts/extract_frames.py` → Videolardan kare çıkarır (frame extraction)
-- `scripts/crop_faces.py` → Her kareden yüz tespiti ve kırpma işlemi yapar
-- `test_main.py` → Örnek bir videodan frame çıkarımı yapar
-- `test_crop.py` → Çıkarılan karelerden yüzleri kırpar
+## 🔍 Proje Adımları
 
-## 🧠 Kullanılan Veri Seti
+### 1️⃣ Ön İşleme
+- `scripts/extract_frames.py`  
+  → Videolardan kare (frame) çıkarır  
+- `scripts/crop_faces.py`  
+  → Kareler üzerinden yüzleri tespit eder ve kırpar  
+- Kırpılan yüzler `faces/real` ve `faces/fake` klasörlerine kaydedilir
 
-Veri seti: **Celeb-DF v2**  
-İçeriği şu şekildedir:
+### 2️⃣ Model Eğitimi
+- `scripts/train.py`  
+  → Yüz görüntülerini kullanarak derin öğrenme modeli eğitir  
+  (Model: ResNet18 - Transfer Learning)
+
+---
+
+## 🧠 Kullanılan Veri Setleri
+
+- **Celeb-DF-v2**  
+- **FaceForensics++ (c40 sıkıştırılmış videolar)**  
+
+Veriler `data/` klasöründe tutulmakta; yüzler `faces/` altında `real` ve `fake` olarak ayrılmıştır.
+
+---
+
+## 💻 Gereksinimler
+
+Tüm kütüphaneler `scripts/requirements.txt` dosyasında listelenmiştir. Ortamı kurmak için:
+
+```bash
+pip install -r scripts/requirements.txt
+
+## 🧠 Model Eğitimi
+
+Model olarak ResNet18 kullanılmıştır. Eğitim verileri `faces/real` ve `faces/fake` klasörlerinden alınarak `scripts/train_model.py` dosyasıyla eğitilir.
+
+### Eğitim için:
+```bash
+python scripts/train_model.py
 
